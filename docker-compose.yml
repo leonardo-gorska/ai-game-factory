@@ -1,0 +1,33 @@
+# ─────────────────────────────────────────────────
+# GORVAX GAME FACTORY — Docker Compose
+# ─────────────────────────────────────────────────
+
+services:
+  # Full application (backend + dashboard + game)
+  gorvax:
+    build: .
+    container_name: gorvax-game-factory
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+      - "${DASHBOARD_PORT:-3000}:3000"
+      - "${GAME_PORT:-5173}:5173"
+    env_file:
+      - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      # Persist database and game data
+      - gorvax-storage:/app/backend/storage
+      - gorvax-data:/app/data
+      # Mount game source for live development (optional)
+      # - ./game/src:/app/game/src
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  gorvax-storage:
+  gorvax-data:

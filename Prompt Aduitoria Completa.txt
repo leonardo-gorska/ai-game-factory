@@ -1,0 +1,15 @@
+Quero que você faça uma auditoria completa nesse projeto, com visão crítica para entrega final/eficiência e visão de mercado.
+
+Quero que analise cada arquivo, cada linha, cada escopo, cada ângulo e qualquer possibilidade possível.
+
+Precisamos saber, quais são todos os problemas/erros/bugs/inconsitências/incoerência visual, falhas no fluxo de prompts, enfim, não vou te dizer o que procurar, quero que procure qualquer coisa que possa ser problemática, hoje ou manhã, para o funcionamento do projeto.
+
+Seu objetivo agora não é codar nada, é apenas fazer essa auditoria massiva e conclusiva, uma verdadeira caça as bruxas auditada e documentada.
+
+Cria um arquivo chamado "auditoria2" na pasta do projeto, e coloque lá tudo o que você achar que precisa melhorar/alterar por algum motvo.
+
+Leve o tempo que precisar, não precisa ter pressa.
+
+Crie a auditoria de forma que eu precise mandar apenas "Leia a auditoria2.md e continue o plano", na próxima conversa e ela continue e atualize a audiotiea depois.
+
+100% da sua interação deve ser em português.

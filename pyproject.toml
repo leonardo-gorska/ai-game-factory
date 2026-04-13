@@ -1,0 +1,12 @@
+[project]
+name = "ai-game-factory"
+version = "5.0.0"
+description = "AI-powered autonomous game development factory"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]

@@ -1,0 +1,52 @@
+# Environment
+.env
+*.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+venv/
+.venv/
+*.egg-info/
+
+# Node
+node_modules/
+.next/
+dist/
+.turbo/
+
+# Game builds
+game/dist/
+game/.snapshots/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Storage & Data
+backend/storage/*.db
+backend/storage/iterations/
+backend/storage/chromadb/
+data/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test & Coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Build
+build/
+out/
+*.egg
