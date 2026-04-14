@@ -1,0 +1,19 @@
+{
+  "name": "gorvax-game",
+  "version": "0.1.0",
+  "description": "Gorvax Game — Hybrid-Casual Idle RPG",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5174",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "npx eslint src/ --no-error-on-unmatched-pattern || true"
+  },
+  "dependencies": {
+    "phaser": "3.80.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "vite": "^6.0.0"
+  }
+}

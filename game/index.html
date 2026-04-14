@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Realm Forge — Idle RPG</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        #game-container {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        canvas {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="game-container"></div>
+    <script>
+        /**
+         * SW Cleanup — Intentional workaround (GM-03)
+         *
+         * WHY: Port 5174 may have stale service workers and caches
+         * registered by previous Vite projects that ran on the same
+         * port. These ghosts can serve outdated assets (HTML, JS, CSS)
+         * even after a fresh build, causing confusing runtime errors.
+         *
+         * WHEN TO REMOVE: Once the game has been running stably for a
+         * while and no users report stale-cache issues, this block can
+         * be safely deleted. If a legitimate service worker is added
+         * in the future (e.g. for PWA / offline support), this cleanup
+         * MUST be removed first or scoped to avoid unregistering it.
+         *
+         * IMPACT: Runs once on every page load; negligible perf cost.
+         */
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(regs => {
+                regs.forEach(r => r.unregister());
+            });
+            if ('caches' in window) {
+                caches.keys().then(names => {
+                    names.forEach(name => caches.delete(name));
+                });
+            }
+        }
+    </script>
+    <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>

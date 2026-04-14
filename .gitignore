@@ -1,0 +1,31 @@
+# Environment files with secrets
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+
+# Node
+node_modules/
+.next/
+dist/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# System
+.DS_Store
+Thumbs.db
+
+# AI tooling artifacts
+IMPLEMENTATION_PLAN*.md
+auditoria*.md
+.gemini/

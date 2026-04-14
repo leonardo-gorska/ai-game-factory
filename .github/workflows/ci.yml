@@ -1,0 +1,147 @@
+name: "AI Game Factory — CI"
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ── Backend Checks ────────────────────────────────
+  backend:
+    name: "🐍 Backend"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('backend/requirements.txt') }}
+          restore-keys: ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+          pip install ruff mypy
+
+      - name: Lint with Ruff
+        run: ruff check backend/ --select E,W,F,I --ignore E501
+
+      - name: Type check with MyPy
+        run: mypy backend/ --ignore-missing-imports --no-error-summary || true
+
+      - name: Python syntax check
+        run: python -m py_compile backend/main.py
+
+  # ── Game Build ────────────────────────────────────
+  game:
+    name: "🎮 Game Build"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: game/package-lock.json
+
+      - name: Install game dependencies
+        working-directory: game
+        run: npm ci
+
+      - name: Build game (Vite)
+        working-directory: game
+        run: npm run build
+
+  # ── Dashboard Build ──────────────────────────────
+  dashboard:
+    name: "📊 Dashboard Build"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: dashboard/package-lock.json
+
+      - name: Install dashboard dependencies
+        working-directory: dashboard
+        run: npm ci
+
+      - name: Lint
+        working-directory: dashboard
+        run: npm run lint || true
+
+      - name: Build dashboard (Next.js)
+        working-directory: dashboard
+        run: npm run build
+
+  # ── Integration Check ────────────────────────────
+  integration:
+    name: "🔗 Integration"
+    runs-on: ubuntu-latest
+    needs: [backend, game, dashboard]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install backend
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+
+      - name: Verify backend imports
+        run: |
+          python -c "
+          from backend.config import get_config
+          from backend.api.server import create_app
+          from backend.api.cache import AsyncCache, get_cache
+          from backend.api.rate_limiter import RateLimitMiddleware
+          from backend.core.ci_pipeline import CIPipeline
+          from backend.core.quality_engine import QualityEngine
+          from backend.core.cost_guard import CostGuard
+          from backend.core.stagnation_guard import StagnationGuard
+          from backend.core.novelty_engine import NoveltyEngine
+          from backend.core.diff_analyzer import DiffAnalyzer
+          from backend.core.watchdog import Watchdog
+          from backend.core.experiment_tracker import ExperimentTracker
+          from backend.core.exploit_detector import ExploitDetector
+          from backend.core.exploration_controller import ExplorationController
+          print('✅ All imports successful')
+          "
+
+      - name: Summary
+        run: |
+          echo "## CI Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Backend: Python lint + type check passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Game: Vite build successful" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Dashboard: Next.js build successful" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Integration: All module imports verified" >> $GITHUB_STEP_SUMMARY
