@@ -50,3 +50,11 @@ htmlcov/
 build/
 out/
 *.egg
+
+# Internal scripts
+Prompt*.txt
+*.ps1
+check.py
+monitor.py
+test_llm.py
+stop_reset.py
