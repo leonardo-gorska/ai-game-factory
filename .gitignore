@@ -28,4 +28,4 @@ Thumbs.db
 # Planning artifacts
 IMPLEMENTATION_PLAN*.md
 TASK.md
-.gemini/
+.local/
