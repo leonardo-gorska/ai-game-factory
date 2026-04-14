@@ -29,3 +29,7 @@ Thumbs.db
 IMPLEMENTATION_PLAN*.md
 TASK.md
 .local/
+
+# Local workflows
+.agent/
+.agents/
