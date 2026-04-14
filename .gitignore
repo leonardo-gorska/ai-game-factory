@@ -25,7 +25,7 @@ dist/
 .DS_Store
 Thumbs.db
 
-# AI tooling artifacts
+# Planning artifacts
 IMPLEMENTATION_PLAN*.md
-auditoria*.md
+TASK.md
 .gemini/
