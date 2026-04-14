@@ -1,0 +1,17 @@
+Fala Claudia, boa noite!
+
+Preciso que você revise, com visão de mercado, e analista/técnico, todo o fluxo de prompts do projeto (E qualquer outra parte que aborde esse assunto), e entenda porque não estamos tendo uma progressão real e significativa, nem no começo, no mei ou no final do projeto...
+
+Acho que você consegue ler os dados do que foi feito até agora, e se reparat, a última vez rodei 30 ciclos +/- , o jogo parece que ao invés de evoluir, só vai pra trás...
+
+Preciso saber o motivo exato do porque ao invés do projeto progredir de forma linear, ele está estagnado, se não até, piorando...
+
+Estude todas as opções e possibilidades possíveis, de todos os ângulos possíveis.
+
+O Objetivo é que a produção seja linear e progressiva do começo ao final do projeto, visando uma entrega final impecável para o consumidor final do jogo/produto.
+
+Podem ser prompts mal estruturados, má configuração técnica da nossa parte, até mesmo pouco delay entre iterações, não sei, não faço idéia, quero que você análise de todas as formas e ângulos possíveis e crie uma auditoria completa do porque isso está acontecendo, e o que poderia resolver.
+
+Crie um arquivo chamado "auditoria prompts", e cole tudo lá, para que depois eu possa consumir esses dados e gerar um plano de implementação para resolver isso.
+
+Tanto o arquivo quanto toda sua interação devem ser/estar 100% e português
